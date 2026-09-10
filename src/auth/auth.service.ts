@@ -7,7 +7,6 @@ export class AuthService {
     constructor (private readonly userService: UserService) {};
 
     registerUser(registerUserDto: RegisterUserDto) {
-        console.log(registerUserDto)
-        return this.userService.createUser()
+        return this.userService.createUser(registerUserDto)
     }
 }
