@@ -6,6 +6,8 @@ import { AuthModule } from './auth/auth.module.js';
 import { UserModule } from './user/user.module.js';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UserService } from './user/user.service.js';
+import { UserModule } from './user/user.module.js';
 @Module({
   imports: [
     ConfigModule.forRoot({isGlobal: true}),
@@ -18,6 +20,6 @@ import { MongooseModule } from '@nestjs/mongoose';
     AuthModule, 
     UserModule],
   controllers: [AppController, CatsController],
-  providers: [AppService],
+  providers: [AppService, UserService],
 })
 export class AppModule {}
