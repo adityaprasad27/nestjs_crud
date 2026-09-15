@@ -4,6 +4,8 @@ import { AuthService } from './auth.service.js';
 import { UserModule } from '../user/user.module.js';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { PASSWORD_HASHER } from './password-hash/password-hasher.interface.js';
+import { BcryptPasswordHasher } from './password-hash/bcrypt-password-hasher.js';
 
 @Module({
   imports: [
@@ -18,6 +20,9 @@ import { ConfigService } from '@nestjs/config';
     }) 
   ],
   controllers: [AuthController],
-  providers: [AuthService]
+  providers: [
+    AuthService,
+    {provide: PASSWORD_HASHER, useClass: BcryptPasswordHasher}
+  ]
 })
 export class AuthModule {}
