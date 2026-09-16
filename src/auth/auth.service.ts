@@ -1,14 +1,15 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../user/user.service.js';
-import { JwtService } from '@nestjs/jwt';
 import { PASSWORD_HASHER } from './password-hash/password-hasher.interface.js';
 import type { PasswordHasher } from './password-hash/password-hasher.interface.js';
+import type { TokenPayload, TokenService } from './token/token.interface.js';
+import { TOKEN_SERVICE } from './token/token.interface.js';
 
 @Injectable()
 export class AuthService {
     constructor (
         private userService: UserService,
-        private jwtService: JwtService,
+        @Inject(TOKEN_SERVICE) private tokenService: TokenService,
         @Inject(PASSWORD_HASHER) private passwordHasher: PasswordHasher,
     ) {};
 
@@ -18,9 +19,9 @@ export class AuthService {
         if(!user || !(await this.passwordHasher.compare(pass, user.passwordHash)) ){
             throw new UnauthorizedException();
         }
-        const payload = {sub: user.userId, username: user.username};
+        const payload: TokenPayload = {sub: user.userId, username: user.username};
         return {
-            access_token: await this.jwtService.signAsync(payload),
+            access_token: await this.tokenService.sign(payload),
         }
     } 
 }
