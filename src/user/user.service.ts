@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { USER_REPOSITORY } from './user-repository/user-repository.interface.js';
-import type { UserRepository } from './user-repository/user-repository.interface.js';
-export type User = any; // this should be real class/interface
+import type { User, UserRepository } from './user-repository/user-repository.interface.js';
 
 @Injectable()
 export class UserService {
@@ -15,5 +14,9 @@ export class UserService {
     async getBio(username: string) {
         const user = await this.userRepository.findByUsername(username);
         return user?.bio;
+    }
+
+    async createUser(user: Omit<User, 'userId'>): Promise<User> {
+        return this.userRepository.create(user);
     }
 }

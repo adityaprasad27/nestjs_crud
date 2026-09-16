@@ -9,7 +9,7 @@ import { JwtTokenService } from "./jwt-token.service.js";
 @Module({
     imports: [
         JwtModule.registerAsync({
-            global: true,
+            // global: true, not needed as only tokenservice uses jwt           
             inject: [ConfigService],
             useFactory: (configService: ConfigService) => ({
                 secret: configService.get<string>('JWT_SECRET'),
