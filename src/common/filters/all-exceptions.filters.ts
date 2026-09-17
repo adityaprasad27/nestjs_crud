@@ -1,5 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from "@nestjs/common";
 import { Response } from 'express';
+import { buildErrorResponse } from "./error.response.js";
 // TODO ; need to make this beter code because if add logging here then wer are coupling 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -14,6 +15,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
                         ? exception.message
                         : 'Internal server error';
 
-        response.status(status).json({statusCode: status, message, from:'all exceptions filter we built'});
+        response.status(status).json(buildErrorResponse(status, message));
     }
 }
