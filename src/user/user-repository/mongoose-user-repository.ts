@@ -16,6 +16,7 @@ export class MongooseUserRepository implements UserRepository {
         return doc ? this.toDomain(doc) : undefined;
     }
     async create(user: Omit<User, "userId">): Promise<User> {
+        // TODO techincally this can lead to race conditions, i mean like  mong will return 500 but we should have a conflict exception raise here
         const doc = await this.model.create(user);
         return this.toDomain(doc);
     }
