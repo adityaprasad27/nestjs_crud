@@ -1,13 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service.js';
-import { USER_REPOSITORY, UserRepository } from './user-repository/user-repository.interface.js';
+import { USER_REPOSITORY } from './user-repository/user-repository.interface.js';
+import { createMockUserRepository } from './user-repository/user-repository.mock.js';
 
 describe('UserService', () => {
   let service: UserService;
-  let mockUserRepository: {findByUsername: ReturnType<typeof vi.fn>; create: ReturnType<typeof vi.fn>};
+  const mockUserRepository = createMockUserRepository();
 
   beforeEach(async () => {
-    mockUserRepository = {findByUsername: vi.fn(), create: vi.fn()}
+    vi.clearAllMocks();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UserService,

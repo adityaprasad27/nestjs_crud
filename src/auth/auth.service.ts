@@ -2,8 +2,8 @@ import { ConflictException, Inject, Injectable, UnauthorizedException } from '@n
 import { UserService } from '../user/user.service.js';
 import { PASSWORD_HASHER } from './password-hash/password-hasher.interface.js';
 import type { PasswordHasher } from './password-hash/password-hasher.interface.js';
-import type { TokenPayload, TokenService } from './token/token.interface.js';
-import { TOKEN_SERVICE } from './token/token.interface.js';
+import type { TokenPayload, TokenService } from './token/token-service.interface.js';
+import { TOKEN_SERVICE } from './token/token-service.interface.js';
 import { User } from '../user/user-repository/user-repository.interface.js';
 
 @Injectable()
