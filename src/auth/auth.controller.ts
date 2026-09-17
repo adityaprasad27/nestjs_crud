@@ -15,6 +15,7 @@ export class AuthController {
         return this.authService.signIn(dto.username, dto.password)
     }
 
+    // TODO: add mongo spciefic exception filter here which takes precendence over global excpetion filter 
     @HttpCode(HttpStatus.OK)
     @Post('register')
     register(@Body() dto: RegisterDto) {
